@@ -3,6 +3,7 @@
 ## Contents
 
 - Compatibility model
+- Ricardian contract role
 - Contract overview
 - Contract and token icon
 - Source and versions
@@ -23,6 +24,25 @@ Use `relocke.ui/1`. Clause IDs and frontmatter keys are case-sensitive. Preserve
 
 Documentation is advisory. It does not change executable serialization, permissions, code, or state.
 
+## Ricardian contract role
+
+Use Ricardian contracts to connect three layers without collapsing them:
+
+1. human-readable terms describing intent, roles, commitments, risks, and side effects;
+2. structured metadata that machines and LLMs can parse, index, validate, explain, and display; and
+3. stable references to the contract account, executable ABI, action or table, source, and version.
+
+For execution, generate and validate transactions from the live ABI. Ricardian
+text may guide tool selection and explanation, but it is not signing authority
+and does not change runtime behavior.
+
+For social and legal use, preserve document identity and integrity and record
+how participants received notice and expressed assent. Do not call a clause
+legally binding merely because it is stored in an ABI. Enforceability depends
+on participant identity and capacity, governing law, required formalities,
+consumer or financial regulation, jurisdiction, and the facts of the
+interaction. Treat those as legal questions requiring qualified review.
+
 ## Contract overview
 
 Use exactly one `ui.contract` clause:
@@ -30,7 +50,7 @@ Use exactly one `ui.contract` clause:
 ```yaml
 ---
 schema: relocke.ui/1
-spec-version: 1.0.2
+spec-version: 1.0.3
 contract-version: 1.0.0
 types: token,payments
 title: Example token

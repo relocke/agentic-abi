@@ -72,6 +72,11 @@ Set `schema: relocke.ui/1`, `spec-version`, and `contract-version` in the overvi
 
 Associate the icon with a token only when `symbol-code` exactly matches a verified symbol issued by this chain/account. Otherwise use the icon only as contract identity.
 
+Treat Ricardian content as a bridge between human-readable terms,
+machine-readable semantics, and the identified executable interface. Keep
+those layers connected, but never claim that prose changes serialization or
+grants transaction authority.
+
 ### 5. Describe side effects explicitly
 
 For every action or external trigger, document:
@@ -88,6 +93,11 @@ For every action or external trigger, document:
 - behavior that occurs later in a separate transaction.
 
 Never claim that documentation proves runtime behavior. Verify claims against source and live state.
+
+Do not claim that a Ricardian clause is automatically legally binding. Before
+describing it as an agreement, distinguish shared social commitments from legal
+enforceability and identify the evidence for document integrity, participant
+identity, notice, assent, capacity, governing law, and required formalities.
 
 ### 6. Apply SemVer
 

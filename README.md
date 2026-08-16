@@ -65,6 +65,69 @@ descriptive context without granting permissions or changing runtime behavior.
 ReLocke re-fetches the deployed contract and chain state before presenting the
 combined model at `/accounts/<chain-slug>/<account>/smart-contract`.
 
+## Ricardian contracts: shared terms for people and machines
+
+A Ricardian contract joins human-readable terms with structured data and a
+stable identity. The original design treats the contract document as the
+authoritative description of a financial instrument while making important
+values available to software. Agentic ABI applies that pattern to contract
+actions, tables, external triggers, permissions, risks, and side effects.
+
+```mermaid
+flowchart TD
+    R["Ricardian contract<br/>readable terms + structured metadata"]
+
+    R --> H["Human-readable rights, duties, risks, and intent"]
+    R --> M["Machine-readable fields and stable clause IDs"]
+    R --> I["Contract identity, source, version, and provenance"]
+
+    H --> S["Users and participants review shared commitments"]
+    M --> P["Machines parse, index, query, and validate"]
+    M --> C["Code links terms to actions, tables, and parameters"]
+    M --> L["LLMs explain effects, plan workflows, and select tools"]
+    I --> P
+    I --> C
+    I --> L
+
+    P --> D["ReLocke contract display"]
+    C --> D
+    L --> D
+    H --> D
+
+    D --> U["Overview, actions, tables, icons, risks, and side effects"]
+    U --> A["Explicit participant review and approval"]
+    A --> X["Validated execution through the live ABI"]
+
+    S --> Q["Identity, notice, assent, capacity, and applicable law"]
+    Q --> E["Potentially binding electronic and social agreement"]
+```
+
+- **Machines:** stable clause identifiers and frontmatter turn prose into
+  discoverable, indexable, and testable context.
+- **Code:** the document can identify the intended action, table, parameters,
+  contract account, source revision, and interface version. Serialization must
+  still come from the live executable ABI.
+- **LLMs and execution:** an LLM can use the terms to explain consequences,
+  choose tools, and prepare a transaction proposal. It must not treat the prose
+  as permission to sign or execute; live validation and explicit approval
+  remain required.
+- **Display:** ReLocke can render the same source as contract overviews, action
+  explanations, table semantics, token identity, risks, and side effects.
+- **Social and legal agreement:** the text can record shared expectations and
+  commitments between issuers, users, communities, and other participants. It
+  may contribute to a binding electronic agreement when the relevant legal
+  requirements are satisfied.
+
+A deployed Ricardian clause is **not automatically legally binding**. Legal
+effect depends on facts such as document identity and integrity, adequate
+notice, demonstrable assent, participant identity and capacity, governing law,
+consumer or financial regulation, and jurisdiction-specific formalities. The
+text also cannot override executable behavior, grant blockchain authority, or
+prove that a participant consented.
+
+Further reading: [Ian Grigg's original Ricardian Contract paper](https://www.iang.org/papers/ricardian_contract.html)
+and the [UNCITRAL Model Law on Electronic Commerce](https://uncitral.un.org/en/texts/ecommerce/modellaw/electronic_commerce).
+
 ## Point an LLM at the skill
 
 Use the canonical [`SKILL.md`](SKILL.md), or give an agent the raw URL directly:
@@ -125,7 +188,7 @@ See [`references/token-contract.md`](references/token-contract.md) for the compl
 
 Never treat SemVer as proof that an upgrade is safe. Compare source, ABI, tables, permissions, migrations, WASM hashes, and live state.
 
-The current specification version is [`1.0.2`](VERSION).
+The current specification version is [`1.0.3`](VERSION).
 
 ## Validate an ABI
 
