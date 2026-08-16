@@ -1,0 +1,4 @@
+interface:
+  display_name: "Agentic ABI"
+  short_description: "Create rich, versioned ReLocke contract ABIs"
+  default_prompt: "Use $agentic-abi to create and validate a ReLocke-supported token contract and Agentic ABI without deploying it."

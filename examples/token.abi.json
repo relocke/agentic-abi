@@ -1,0 +1,143 @@
+{
+  "version": "eosio::abi/1.2",
+  "types": [],
+  "structs": [
+    {
+      "name": "create",
+      "base": "",
+      "fields": [
+        { "name": "issuer", "type": "name" },
+        { "name": "maximum_supply", "type": "asset" }
+      ]
+    },
+    {
+      "name": "issue",
+      "base": "",
+      "fields": [
+        { "name": "to", "type": "name" },
+        { "name": "quantity", "type": "asset" },
+        { "name": "memo", "type": "string" }
+      ]
+    },
+    {
+      "name": "retire",
+      "base": "",
+      "fields": [
+        { "name": "quantity", "type": "asset" },
+        { "name": "memo", "type": "string" }
+      ]
+    },
+    {
+      "name": "transfer",
+      "base": "",
+      "fields": [
+        { "name": "from", "type": "name" },
+        { "name": "to", "type": "name" },
+        { "name": "quantity", "type": "asset" },
+        { "name": "memo", "type": "string" }
+      ]
+    },
+    {
+      "name": "open",
+      "base": "",
+      "fields": [
+        { "name": "owner", "type": "name" },
+        { "name": "symbol", "type": "symbol" },
+        { "name": "ram_payer", "type": "name" }
+      ]
+    },
+    {
+      "name": "close",
+      "base": "",
+      "fields": [
+        { "name": "owner", "type": "name" },
+        { "name": "symbol", "type": "symbol" }
+      ]
+    },
+    {
+      "name": "account",
+      "base": "",
+      "fields": [{ "name": "balance", "type": "asset" }]
+    },
+    {
+      "name": "currency_stats",
+      "base": "",
+      "fields": [
+        { "name": "supply", "type": "asset" },
+        { "name": "max_supply", "type": "asset" },
+        { "name": "issuer", "type": "name" }
+      ]
+    }
+  ],
+  "actions": [
+    {
+      "name": "create",
+      "type": "create",
+      "ricardian_contract": "---\ntitle: Create token definition\n---\nRequires contract-account authorization. Creates the stat row for one symbol and charges RAM to the contract. It does not issue supply or create a balance. Fails for invalid or duplicate symbols and non-positive maximum supply."
+    },
+    {
+      "name": "issue",
+      "type": "issue",
+      "ricardian_contract": "---\ntitle: Issue token supply\n---\nRequires issuer authorization. Increases current supply within the registered maximum and credits the issuer. When `to` differs from the issuer, the implementation transfers the quantity atomically and emits transfer notifications."
+    },
+    {
+      "name": "retire",
+      "type": "retire",
+      "ricardian_contract": "---\ntitle: Retire token supply\n---\nRequires issuer authorization. Debits the issuer balance and reduces current supply atomically. Fails for invalid quantity, symbol mismatch, or insufficient issuer balance."
+    },
+    {
+      "name": "transfer",
+      "type": "transfer",
+      "ricardian_contract": "---\ntitle: Transfer tokens\n---\nRequires sender authorization. Debits the sender, credits the recipient, may create a recipient balance row and charge RAM, and notifies both accounts. A failing notification reverts the complete transaction."
+    },
+    {
+      "name": "open",
+      "type": "open",
+      "ricardian_contract": "---\ntitle: Open a token balance\n---\nRequires RAM-payer authorization. Creates a zero-balance row for the owner and registered symbol, charging RAM to `ram_payer`."
+    },
+    {
+      "name": "close",
+      "type": "close",
+      "ricardian_contract": "---\ntitle: Close an empty token balance\n---\nRequires owner authorization. Erases only a zero-balance row and refunds its RAM to the original payer."
+    }
+  ],
+  "tables": [
+    {
+      "name": "accounts",
+      "index_type": "i64",
+      "key_names": [],
+      "key_types": [],
+      "type": "account"
+    },
+    {
+      "name": "stat",
+      "index_type": "i64",
+      "key_names": [],
+      "key_types": [],
+      "type": "currency_stats"
+    }
+  ],
+  "ricardian_clauses": [
+    {
+      "id": "ui.contract",
+      "body": "---\nschema: relocke.ui/1\nspec-version: 1.0.0\ncontract-version: 1.0.0\ntypes: token,payments\ntitle: Example token\nrepository: https://github.com/example/example-token\nrevision: 0123456789abcdef0123456789abcdef01234567\n---\nIssues and manages the EXAMPLE fungible token. The standard actions control token definition, supply, balances, transfers, and optional zero-balance rows. This example is documentation, not audited production code."
+    },
+    {
+      "id": "ui.contract.icon",
+      "body": "---\nschema: relocke.ui/1\nsymbol-code: EXAMPLE\n---\n<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 32 32\"><rect width=\"32\" height=\"32\" rx=\"8\" fill=\"#111111\"/><path d=\"M8 16h16\" stroke=\"#ffffff\" stroke-width=\"3\"/></svg>"
+    },
+    {
+      "id": "table.accounts",
+      "body": "---\nschema: relocke.ui/1\ntype: public-table\ntable: accounts\nrow-type: account\nscope: owner\nprimary-key: symbol-code\ntitle: Account balances\n---\nEach scope is a token owner. One row stores the owner's balance for one symbol. Transfers, issues, retires, opens, and closes can change row state."
+    },
+    {
+      "id": "table.stat",
+      "body": "---\nschema: relocke.ui/1\ntype: public-table\ntable: stat\nrow-type: currency_stats\nscope: symbol-code\nprimary-key: symbol-code\ntitle: Token supply and issuer\n---\nStores current supply, maximum supply, and issuer for one registered token symbol. Create adds the row; issue and retire change supply."
+    }
+  ],
+  "error_messages": [],
+  "abi_extensions": [],
+  "variants": [],
+  "action_results": [],
+  "kv_tables": {}
+}
