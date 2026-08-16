@@ -28,6 +28,43 @@ The general route is:
 https://relocke.io/accounts/<chain-slug>/<account>/smart-contract
 ```
 
+## How Agentic ABI works
+
+```mermaid
+flowchart LR
+    A["Contract developer or LLM"] --> B["Standard executable ABI"]
+    A --> C["Agentic ABI semantic layer"]
+
+    C --> C1["Contract identity and token icon"]
+    C --> C2["Action, table, and side-effect documentation"]
+    C --> C3["Source provenance and SemVer"]
+
+    B --> D["One enriched ABI"]
+    C1 --> D
+    C2 --> D
+    C3 --> D
+
+    D --> E["Validate and review"]
+    E --> F["Deploy to a ReLocke-supported chain"]
+    F --> G["ReLocke fetches the live ABI, code hash, and state"]
+    G --> H["ReLocke combines executable structure with semantic context"]
+
+    H --> I["Contract overview and capability types"]
+    H --> J["Token identity and icon"]
+    H --> K["Actions, permissions, and side effects"]
+    H --> L["Tables and external triggers"]
+
+    I --> M["ReLocke smart-contract page"]
+    J --> M
+    K --> M
+    L --> M
+```
+
+The executable ABI remains the authority for serialization. Agentic ABI adds
+descriptive context without granting permissions or changing runtime behavior.
+ReLocke re-fetches the deployed contract and chain state before presenting the
+combined model at `/accounts/<chain-slug>/<account>/smart-contract`.
+
 ## Point an LLM at the skill
 
 Use the canonical [`SKILL.md`](SKILL.md), or give an agent the raw URL directly:
