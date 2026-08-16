@@ -1,6 +1,6 @@
 ---
 name: agentic-abi
-description: Create, explain, validate, enrich, or version a ReLocke Agentic ABI for a token or other smart contract, including chain-specific token source and deployment planning, ui.contract metadata, safe SVG token icons, action and table semantics, source provenance, external triggers, side effects, and SemVer. Use for ReLocke contract surfaces on Vaulta/EOS, WAX, Telos, Jungle testnet, XPR Network, and supported issuer-ledger profiles such as XRP Ledger.
+description: Create, explain, validate, enrich, or version a ReLocke Agentic ABI for a token or other smart contract, including chain-specific token source and deployment planning, ui.contract metadata, safe SVG token icons, action and table semantics, source provenance, external triggers, side effects, and SemVer. Use for ReLocke contract surfaces on WAX, Vaulta, XPR Network, XRP Ledger, and Jungle testnet.
 ---
 
 # Agentic ABI
@@ -21,7 +21,7 @@ Keep executable truth and descriptive context separate. Treat deployed code, liv
 
 Resolve the exact network before generating code:
 
-- Select the ReLocke chain profile for Vaulta/EOS, WAX, Telos, Jungle testnet, XPR Network, or XRP Ledger.
+- Select the ReLocke chain profile for WAX, Vaulta, XPR Network, XRP Ledger, or Jungle testnet.
 - Do not assume that account names, ABI formats, actions, permissions, or deployment artifacts are portable between profiles.
 - Do not treat XRP Ledger as XPR Network. XRPL uses issuer accounts and trust lines instead of ReLocke's account-deployed token-contract workflow.
 - Stop and identify the mismatch when the user says `XRP` but the supplied account, tooling, or chain configuration indicates `XPR`.

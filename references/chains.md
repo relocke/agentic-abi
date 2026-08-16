@@ -4,14 +4,23 @@ Use this reference before selecting a build profile, deployment workflow, bridge
 
 ## Supported ReLocke targets
 
-The current ReLocke token-contract source defines these bridge identifiers:
+ReLocke supports WAX, Vaulta, XPR Network, XRP Ledger, and Jungle testnet.
+
+| Target | Environment | ReLocke profile |
+| --- | --- | --- |
+| WAX | Production | Account-deployed contract ABI and deployment workflow. |
+| Vaulta | Production | Account-deployed contract ABI and deployment workflow. |
+| XPR Network | Production | Account-deployed contract ABI and deployment workflow. |
+| XRP Ledger | Production | Issuer-account token descriptor and transaction workflow. |
+| Jungle testnet | Test | Account-deployed contract ABI and test deployment workflow. |
+
+The current ReLocke token-contract source defines bridge identifiers for these account-contract profiles:
 
 | Bridge ID | Target | Environment | Agentic ABI |
 | ---: | --- | --- | --- |
 | `-1` | Jungle testnet | Test | Account-deployed contract ABI and test deployment workflow. |
 | `0` | Vaulta | Production | Account-deployed contract ABI and deployment workflow. |
 | `1` | WAX | Production | Account-deployed contract ABI and deployment workflow. |
-| `2` | Telos | Production | Account-deployed contract ABI and deployment workflow. |
 | `3` | XPR Network | Production | Account-deployed contract ABI and deployment workflow. |
 
 Treat bridge IDs as protocol values, not universal chain identifiers. Revalidate them against the deployed contract version before constructing a bridge memo or transaction.

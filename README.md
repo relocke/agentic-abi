@@ -84,16 +84,17 @@ effects, and contract semver. Do not deploy or sign transactions until I
 approve the complete source, ABI, permissions, and deployment plan.
 ```
 
-## Supported targets
+## ReLocke-supported blockchains
+
+ReLocke supports WAX, Vaulta, XPR Network, XRP Ledger, and Jungle testnet.
 
 | Target | ReLocke profile | Agentic ABI behavior |
 | --- | --- | --- |
-| Vaulta / EOS | Account-deployed contract | Token-contract creation, enriched ABI, deployment, and ReLocke rendering. |
 | WAX | Account-deployed contract | Token-contract creation, enriched ABI, deployment, and ReLocke rendering. |
-| Telos | Account-deployed contract | Token-contract creation, enriched ABI, deployment, and ReLocke rendering. |
-| Jungle testnet | Test account-deployed contract | Test deployment workflow before production promotion. |
+| Vaulta | Account-deployed contract | Token-contract creation, enriched ABI, deployment, and ReLocke rendering. |
 | XPR Network | Account-deployed contract | Full Agentic ABI model. Current ReLocke bridge sources identify XPR as chain ID `3`. |
 | XRP Ledger | Issuer-account token | Use a chain-native issuer/token descriptor and transaction plan rather than account-deployed WASM. |
+| Jungle testnet | Test account-deployed contract | Test deployment workflow before production promotion. |
 
 `XPR Network` and `XRP Ledger` are different networks. ReLocke selects a chain profile before creating code, metadata, or transactions. If “XRP” means XRPL, follow the issuer-account workflow in [`references/chains.md`](references/chains.md).
 
