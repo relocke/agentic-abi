@@ -125,7 +125,7 @@ See [`references/token-contract.md`](references/token-contract.md) for the compl
 
 Never treat SemVer as proof that an upgrade is safe. Compare source, ABI, tables, permissions, migrations, WASM hashes, and live state.
 
-The current specification version is [`1.0.1`](VERSION).
+The current specification version is [`1.0.2`](VERSION).
 
 ## Validate an ABI
 
