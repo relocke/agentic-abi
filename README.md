@@ -18,9 +18,9 @@ An Agentic ABI can give a token contract a richer ReLocke surface:
 - payable or externally triggered behavior that is absent from the action list; and
 - a versioned contract interface that agents can inspect before proposing integrations or upgrades.
 
-For example, the Vaulta contract account `rloc` is displayed at:
+For example, the Vaulta contract account `token.rloc` is displayed at:
 
-[`https://relocke.io/accounts/vaulta/rloc/smart-contract`](https://relocke.io/accounts/vaulta/rloc/smart-contract)
+[`https://relocke.io/accounts/vaulta/token.rloc/smart-contract`](https://relocke.io/accounts/vaulta/token.rloc/smart-contract)
 
 The general route is:
 

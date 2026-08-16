@@ -19,7 +19,7 @@ Treat bridge IDs as protocol values, not universal chain identifiers. Revalidate
 Vaulta is the current network identity for the chain historically known as EOS. Use the chain slug exposed by ReLocke rather than inventing an alias. The verified example is:
 
 ```text
-https://relocke.io/accounts/vaulta/rloc/smart-contract
+https://relocke.io/accounts/vaulta/token.rloc/smart-contract
 ```
 
 Construct other account routes only from a chain slug that the current ReLocke application exposes:
