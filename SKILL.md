@@ -1,6 +1,6 @@
 ---
 name: agentic-abi
-description: Create, explain, validate, enrich, or version a ReLocke Agentic ABI for a token or other smart contract, including Antelope token-contract source and deployment planning, ui.contract metadata, safe SVG token icons, action and table semantics, source provenance, external triggers, side effects, and SemVer. Use for ReLocke contract surfaces on Vaulta/EOS, WAX, Telos, Jungle testnet, and XPR Network, or when distinguishing those Antelope deployments from XRP Ledger issuer tokens.
+description: Create, explain, validate, enrich, or version a ReLocke Agentic ABI for a token or other smart contract, including chain-specific token source and deployment planning, ui.contract metadata, safe SVG token icons, action and table semantics, source provenance, external triggers, side effects, and SemVer. Use for ReLocke contract surfaces on Vaulta/EOS, WAX, Telos, Jungle testnet, XPR Network, and supported issuer-ledger profiles such as XRP Ledger.
 ---
 
 # Agentic ABI
@@ -21,8 +21,9 @@ Keep executable truth and descriptive context separate. Treat deployed code, liv
 
 Resolve the exact network before generating code:
 
-- Use the Antelope workflow for Vaulta/EOS, WAX, Telos, Jungle testnet, or XPR Network.
-- Do not treat XRP Ledger as XPR Network. XRPL does not deploy an Antelope token contract or expose an EOSIO ABI.
+- Select the ReLocke chain profile for Vaulta/EOS, WAX, Telos, Jungle testnet, XPR Network, or XRP Ledger.
+- Do not assume that account names, ABI formats, actions, permissions, or deployment artifacts are portable between profiles.
+- Do not treat XRP Ledger as XPR Network. XRPL uses issuer accounts and trust lines instead of ReLocke's account-deployed token-contract workflow.
 - Stop and identify the mismatch when the user says `XRP` but the supplied account, tooling, or chain configuration indicates `XPR`.
 
 ### 2. Gather the contract brief
@@ -44,7 +45,7 @@ Do not invent missing facts from names or ABI structure. Label facts as verified
 
 ### 3. Build the executable token interface
 
-For an Antelope token contract:
+For a ReLocke-supported account-deployed token contract:
 
 - implement `create`, `issue`, `retire`, `transfer`, `open`, and `close`;
 - implement `accounts` and `stat` tables with standard asset and symbol behavior;

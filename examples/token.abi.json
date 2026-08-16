@@ -120,7 +120,7 @@
   "ricardian_clauses": [
     {
       "id": "ui.contract",
-      "body": "---\nschema: relocke.ui/1\nspec-version: 1.0.0\ncontract-version: 1.0.0\ntypes: token,payments\ntitle: Example token\nrepository: https://github.com/example/example-token\nrevision: 0123456789abcdef0123456789abcdef01234567\n---\nIssues and manages the EXAMPLE fungible token. The standard actions control token definition, supply, balances, transfers, and optional zero-balance rows. This example is documentation, not audited production code."
+      "body": "---\nschema: relocke.ui/1\nspec-version: 1.0.1\ncontract-version: 1.0.0\ntypes: token,payments\ntitle: Example token\nrepository: https://github.com/example/example-token\nrevision: 0123456789abcdef0123456789abcdef01234567\n---\nIssues and manages the EXAMPLE fungible token. The standard actions control token definition, supply, balances, transfers, and optional zero-balance rows. This example is documentation, not audited production code."
     },
     {
       "id": "ui.contract.icon",

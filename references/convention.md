@@ -14,7 +14,7 @@
 
 ## Compatibility model
 
-Keep the output a valid standard Antelope ABI. Add meaning through existing Ricardian fields:
+Keep the output valid for the selected ReLocke chain profile. For profiles that expose Ricardian ABI fields, add meaning through:
 
 - `actions[].ricardian_contract` for public action behavior;
 - `ricardian_clauses[]` for contract, table, type, external-trigger, security, and migration context.
@@ -30,7 +30,7 @@ Use exactly one `ui.contract` clause:
 ```yaml
 ---
 schema: relocke.ui/1
-spec-version: 1.0.0
+spec-version: 1.0.1
 contract-version: 1.0.0
 types: token,payments
 title: Example token
@@ -71,7 +71,7 @@ Without `symbol-code`, use the image only for contract identity. With it, client
 
 Require:
 
-- 1–7 uppercase ASCII letters for Antelope `symbol-code`;
+- 1–7 uppercase ASCII letters for the current ReLocke account-contract `symbol-code` profile;
 - a verified live `stat` scope before claiming an existing token association;
 - no more than 32 KiB of well-formed SVG;
 - the SVG namespace and numeric `viewBox`; and

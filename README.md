@@ -2,7 +2,7 @@
 
 Agent-readable smart-contract interfaces for ReLocke.
 
-Agentic ABI extends a standard Antelope ABI with durable Ricardian context that people, ReLocke, and LLMs can interpret: contract identity, semantic types, token artwork, action intent, table meaning, external triggers, side effects, source provenance, and contract versions.
+Agentic ABI adds durable semantic context that people, ReLocke, and LLMs can interpret: contract identity, semantic types, token artwork, action intent, table meaning, external triggers, side effects, source provenance, and contract versions.
 
 This repository is one specification and one skill—not a catalogue of unrelated agent tools.
 
@@ -49,20 +49,20 @@ approve the complete source, ABI, permissions, and deployment plan.
 
 ## Supported targets
 
-| Target | Model | Agentic ABI behavior |
+| Target | ReLocke profile | Agentic ABI behavior |
 | --- | --- | --- |
-| Vaulta / EOS | Antelope | Full token-contract creation, enriched ABI, deployment, and ReLocke rendering. |
-| WAX | Antelope | Full token-contract creation, enriched ABI, deployment, and ReLocke rendering. |
-| Telos | Antelope | Full token-contract creation, enriched ABI, deployment, and ReLocke rendering. |
-| Jungle testnet | Antelope testnet | Full test deployment workflow before production promotion. |
-| XPR Network | Antelope | Full Agentic ABI model. Current ReLocke bridge sources identify XPR as chain ID `3`. |
-| XRP Ledger | Issuer-account ledger | No Antelope contract or ABI. Use a separate issuer/token descriptor; never deploy EOSIO token code to XRPL. |
+| Vaulta / EOS | Account-deployed contract | Token-contract creation, enriched ABI, deployment, and ReLocke rendering. |
+| WAX | Account-deployed contract | Token-contract creation, enriched ABI, deployment, and ReLocke rendering. |
+| Telos | Account-deployed contract | Token-contract creation, enriched ABI, deployment, and ReLocke rendering. |
+| Jungle testnet | Test account-deployed contract | Test deployment workflow before production promotion. |
+| XPR Network | Account-deployed contract | Full Agentic ABI model. Current ReLocke bridge sources identify XPR as chain ID `3`. |
+| XRP Ledger | Issuer-account token | Use a chain-native issuer/token descriptor and transaction plan rather than account-deployed WASM. |
 
-`XPR Network` and `XRP Ledger` are different networks. The current ReLocke smart-contract implementation documents XPR Network. If “XRP” means XRPL, follow the explicit non-Antelope boundary in [`references/chains.md`](references/chains.md).
+`XPR Network` and `XRP Ledger` are different networks. ReLocke selects a chain profile before creating code, metadata, or transactions. If “XRP” means XRPL, follow the issuer-account workflow in [`references/chains.md`](references/chains.md).
 
 ## Create a ReLocke-supported token
 
-For an Antelope target, the authoring flow is:
+For a ReLocke account-deployed contract profile, the authoring flow is:
 
 1. Select the exact chain and existing deployment account.
 2. Verify control of the account permissions and choose an upgrade policy.
@@ -87,7 +87,7 @@ See [`references/token-contract.md`](references/token-contract.md) for the compl
 
 Never treat SemVer as proof that an upgrade is safe. Compare source, ABI, tables, permissions, migrations, WASM hashes, and live state.
 
-The current specification version is [`1.0.0`](VERSION).
+The current specification version is [`1.0.1`](VERSION).
 
 ## Validate an ABI
 
