@@ -30,7 +30,7 @@ https://relocke.io/accounts/<chain-slug>/<account>/smart-contract
 
 ## Point an LLM at the skill
 
-Use the canonical [`SKILL.md`](SKILL.md), or give an agent the raw URL after this repository is renamed:
+Use the canonical [`SKILL.md`](SKILL.md), or give an agent the raw URL directly:
 
 ```text
 https://raw.githubusercontent.com/relocke/agentic-abi/main/SKILL.md
