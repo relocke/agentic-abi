@@ -6,7 +6,50 @@ Agentic ABI adds durable semantic context that people, ReLocke, and LLMs can int
 
 This repository is one specification and one skill—not a catalogue of unrelated agent tools.
 
-## What it enables
+## Start here: the document, the program, and the map
+
+You do not need to be a blockchain developer to understand the three parts.
+
+1. **The Ricardian contract is the readable document.** It explains what the
+   participants intend, what each party may or must do, the risks, and the
+   expected consequences. A preserved version can be given to a lawyer or
+   presented in a legal dispute as evidence supporting an argument about the
+   participants' agreement. A court or other decision-maker still determines
+   its relevance, admissibility, meaning, and legal effect.
+2. **The WASM contract is the executable program.** Developers write source
+   code and build it into WebAssembly (WASM). The supported blockchain runs
+   that compiled program and changes state according to its code.
+3. **The ABI is the map of the program.** It lists the actions that can be
+   called and the data those actions and tables use. Agentic ABI enriches that
+   map with the Ricardian document, token identity, icons, side effects,
+   payable flows, source provenance, and versions.
+
+```mermaid
+flowchart TD
+    P["People define rights, promises, risks, and shared intent"] --> R["Ricardian contract<br/>a readable document"]
+    S["Developers write source code"] --> B["Build and review"]
+    B --> W["WASM contract<br/>the executable program"]
+    S --> ABI["ABI<br/>the map of actions and data"]
+
+    R --> E["Can be preserved and presented as evidence in a legal dispute"]
+    E --> J["A court or legal process evaluates its meaning and effect"]
+
+    W --> X["The blockchain executes code and updates state"]
+    R --> A["Agentic ABI<br/>connects meaning to the interface"]
+    ABI --> A
+    W --> A
+
+    A --> RL["ReLocke smart-contract page"]
+    RL --> H["People see terms, icons, actions, risks, and side effects"]
+    RL --> M["Machines and LLMs receive structured context"]
+```
+
+The document and the program are related, but they are not the same thing.
+The WASM controls execution. The Ricardian contract records meaning and shared
+expectations. The ABI connects software to the program, and Agentic ABI makes
+that connection understandable to people and machines.
+
+## What Agentic ABI adds
 
 An Agentic ABI can give a token contract a richer ReLocke surface:
 
@@ -15,7 +58,7 @@ An Agentic ABI can give a token contract a richer ReLocke surface:
 - source repository and immutable revision context;
 - semantically documented actions and tables;
 - authorization, state-change, side-effect, and failure descriptions;
-- payable or externally triggered behavior that is absent from the action list; and
+- payable actions and externally triggered behavior that may be absent from the contract's action list;
 - a versioned contract interface that agents can inspect before proposing integrations or upgrades.
 
 For example, the Vaulta contract account `token.rloc` is displayed at:
@@ -28,7 +71,7 @@ The general route is:
 https://relocke.io/accounts/<chain-slug>/<account>/smart-contract
 ```
 
-## How Agentic ABI works
+## Technical flow: how ReLocke uses Agentic ABI
 
 ```mermaid
 flowchart LR
@@ -60,47 +103,66 @@ flowchart LR
     L --> M
 ```
 
+### Layer 1: WASM runtime
+
+The deployed WASM is the executable artifact. Its code checks authorization,
+validates inputs, reads and writes state, sends notifications or inline
+actions, and either succeeds atomically or fails. A description cannot change
+what this program does.
+
+### Layer 2: executable ABI
+
+The ABI defines how software serializes actions and decodes tables. It names
+actions, structs, fields, types, tables, and supported ABI extensions. Code and
+LLMs must construct transactions from the current deployed ABI rather than
+guessing from prose.
+
+### Layer 3: Ricardian and Agentic extensions
+
+Agentic ABI preserves the executable interface and adds structured meaning:
+
+- `actions[].ricardian_contract` explains an action's intent, authorization,
+  preconditions, state changes, notifications, side effects, and failures;
+- `ui.contract` describes the contract, its capabilities, source, and versions;
+- `ui.contract.icon` carries one validated static SVG for contract or token
+  identity, optionally linked to one exact symbol;
+- `table.<name>` explains table scope, rows, indexes, lifecycle, units, and RAM
+  consequences; and
+- `external.<stable-id>` documents payable or externally triggered behavior,
+  including the source contract and action, accepted asset or memo rules,
+  affected tables, side effects, and failure conditions.
+
+Payable documentation does not accept a payment by itself. It explains a flow
+implemented by the WASM so people, applications, and agents can discover and
+review it without confusing documentation with execution.
+
+### Layer 4: ReLocke display and updates
+
+ReLocke fetches the live ABI, code hash, account identity, and available state,
+then renders the Agentic content as an overview, token icon, action pages,
+table descriptions, payable flows, external triggers, risks, and side effects.
+
+For example, the documentation for `token.rloc` can be inspected at:
+
+[`https://relocke.io/accounts/vaulta/token.rloc/smart-contract`](https://relocke.io/accounts/vaulta/token.rloc/smart-contract)
+
+An authorized contract maintainer can propose updated Ricardian and Agentic ABI
+content from the smart-contract page. ReLocke must preserve the executable ABI,
+show the complete change for review, validate the resulting ABI, and require
+the correct account authorization before an update is signed or deployed.
+
 The executable ABI remains the authority for serialization. Agentic ABI adds
 descriptive context without granting permissions or changing runtime behavior.
 ReLocke re-fetches the deployed contract and chain state before presenting the
 combined model at `/accounts/<chain-slug>/<account>/smart-contract`.
 
-## Ricardian contracts: shared terms for people and machines
+## Technical and legal boundaries
 
 A Ricardian contract joins human-readable terms with structured data and a
 stable identity. The original design treats the contract document as the
 authoritative description of a financial instrument while making important
 values available to software. Agentic ABI applies that pattern to contract
 actions, tables, external triggers, permissions, risks, and side effects.
-
-```mermaid
-flowchart TD
-    R["Ricardian contract<br/>readable terms + structured metadata"]
-
-    R --> H["Human-readable rights, duties, risks, and intent"]
-    R --> M["Machine-readable fields and stable clause IDs"]
-    R --> I["Contract identity, source, version, and provenance"]
-
-    H --> S["Users and participants review shared commitments"]
-    M --> P["Machines parse, index, query, and validate"]
-    M --> C["Code links terms to actions, tables, and parameters"]
-    M --> L["LLMs explain effects, plan workflows, and select tools"]
-    I --> P
-    I --> C
-    I --> L
-
-    P --> D["ReLocke contract display"]
-    C --> D
-    L --> D
-    H --> D
-
-    D --> U["Overview, actions, tables, icons, risks, and side effects"]
-    U --> A["Explicit participant review and approval"]
-    A --> X["Validated execution through the live ABI"]
-
-    S --> Q["Identity, notice, assent, capacity, and applicable law"]
-    Q --> E["Potentially binding electronic and social agreement"]
-```
 
 - **Machines:** stable clause identifiers and frontmatter turn prose into
   discoverable, indexable, and testable context.
@@ -188,7 +250,7 @@ See [`references/token-contract.md`](references/token-contract.md) for the compl
 
 Never treat SemVer as proof that an upgrade is safe. Compare source, ABI, tables, permissions, migrations, WASM hashes, and live state.
 
-The current specification version is [`1.0.3`](VERSION).
+The current specification version is [`1.0.4`](VERSION).
 
 ## Validate an ABI
 

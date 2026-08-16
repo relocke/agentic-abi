@@ -15,6 +15,27 @@ Keep executable truth and descriptive context separate. Treat deployed code, liv
 - Read [`references/chains.md`](references/chains.md) before selecting a deployment target or generating a ReLocke account URL.
 - Read [`references/token-contract.md`](references/token-contract.md) before creating, upgrading, or deploying a token contract.
 
+## Explain progressively
+
+When introducing Agentic ABI, explain the layers in this order:
+
+1. Describe the Ricardian contract as the readable document that records
+   participant intent, rights, duties, risks, and expected consequences.
+2. Describe source code as what developers write and WASM as the compiled
+   program that the supported blockchain executes.
+3. Describe the ABI as the map of callable actions and serialized data.
+4. Describe Agentic ABI as the semantic extension that connects the readable
+   terms to actions, tables, token icons, payable flows, side effects, source,
+   and versions for ReLocke, applications, machines, and LLMs.
+5. Only then introduce clause IDs, frontmatter, serialization, validation,
+   deployment, and update mechanics.
+
+For a lay audience, say that a preserved Ricardian document can be presented
+as evidence supporting a legal argument about participant intent. Do not say
+that deployment guarantees admissibility, enforceability, or a binding
+agreement; a court or other legal process determines its effect under the
+applicable facts and law.
+
 ## Workflow
 
 ### 1. Classify the target

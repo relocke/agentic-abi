@@ -50,7 +50,7 @@ Use exactly one `ui.contract` clause:
 ```yaml
 ---
 schema: relocke.ui/1
-spec-version: 1.0.3
+spec-version: 1.0.4
 contract-version: 1.0.0
 types: token,payments
 title: Example token
