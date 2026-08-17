@@ -1,6 +1,6 @@
 ---
 name: agentic-abi
-description: Create, explain, validate, enrich, or version a ReLocke Agentic ABI for a token or other smart contract, including chain-specific token source and deployment planning, ui.contract metadata, safe SVG token icons, action and table semantics, source provenance, external triggers, side effects, and SemVer. Use for ReLocke contract surfaces on WAX, Vaulta, XPR Network, XRP Ledger, and Jungle testnet.
+description: Create, explain, validate, enrich, or version a ReLocke Agentic ABI for a token, metadata-only research project, or other smart contract, including chain-specific deployment planning, ui.contract metadata, pinned project.context documents, safe SVG token icons, action and table semantics, source provenance, external triggers, side effects, and SemVer. Use for ReLocke contract surfaces on WAX, Vaulta, XPR Network, XRP Ledger, and Jungle testnet.
 ---
 
 # Agentic ABI
@@ -61,6 +61,7 @@ Establish:
 8. Required authorizations, tables, notifications, inline actions, RAM payers, external dependencies, side effects, and failure conditions.
 9. Current ABI, WASM hash, table state, and migration requirements for an upgrade.
 10. Desired contract SemVer and the reason for the version change.
+11. Optional public project-context repository, canonical `context.rloc.md`, immutable revision, and exact-byte SHA-256 digest.
 
 Do not invent missing facts from names or ABI structure. Label facts as verified from source, verified on-chain, contract-authored documentation, or user-supplied intent.
 
@@ -84,12 +85,15 @@ Preserve the standard ABI and add:
 
 - exactly one `ui.contract` overview clause;
 - at most one validated `ui.contract.icon` clause;
+- at most one exact `project.context` clause when the account binds a public deliberation context;
 - a Ricardian contract on every public action;
 - one `table.<name>` clause for each public table that needs semantic context;
 - `external.<stable-id>` clauses for notifications, payable flows, or actions on other contracts that trigger behavior; and
 - security or migration clauses when permissions or upgrade behavior are not visible from the ABI.
 
 Set `schema: relocke.ui/1`, `spec-version`, and `contract-version` in the overview. Add repository and immutable revision context only when verified.
+
+Keep `ui.contract.repository` for deployed-code provenance. Use `project.context.repository` separately for a public deliberation repository. A project clause must pin the canonical `context.rloc.md` at a full commit and include the SHA-256 of its exact UTF-8 bytes. Fetch, size-limit, hash, and sanitise it before display or model use; fail closed when any check fails. Metadata-only project ABIs may have no actions or tables and must never imply executable behaviour.
 
 Associate the icon with a token only when `symbol-code` exactly matches a verified symbol issued by this chain/account. Otherwise use the icon only as contract identity.
 
@@ -151,6 +155,7 @@ Then verify manually:
 - source-to-deployment provenance;
 - action, table, clause, and symbol mappings;
 - safe SVG constraints;
+- pinned `project.context` revision, path, size, schema, and exact-byte digest;
 - permission and RAM consequences;
 - state migrations and rollback limits; and
 - ReLocke rendering at `/accounts/<chain-slug>/<account>/smart-contract`.
@@ -172,9 +177,10 @@ Return:
 3. **Version:** previous and proposed contract SemVer with rationale.
 4. **Source:** repository, revision, build profile, and artifact hashes.
 5. **Interface:** actions, tables, types, and clauses added or preserved.
-6. **Side effects:** authorization, state, balances, supply, RAM, notifications, external actions, and failures.
-7. **Validation:** automated and manual checks with unresolved warnings.
-8. **Deployment plan:** unsigned steps awaiting approval, or post-deployment verification when already authorized.
+6. **Project context:** authoritative pinned revision and digest, proposed changes, and any merged revision awaiting on-chain rebind.
+7. **Side effects:** authorization, state, balances, supply, RAM, notifications, external actions, and failures.
+8. **Validation:** automated and manual checks with unresolved warnings.
+9. **Deployment plan:** unsigned steps awaiting approval, or post-deployment verification when already authorized.
 
 ## Example request
 
