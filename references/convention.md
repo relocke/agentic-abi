@@ -7,6 +7,7 @@
 - Contract overview
 - Contract and token icon
 - Source and versions
+- Project context
 - Action documentation
 - Table documentation
 - External triggers
@@ -112,6 +113,59 @@ Treat repository metadata as a claim until the deployed WASM and ABI are reprodu
 
 Preserve the current major schema identifier (`relocke.ui/1`) independently from SemVer. A compatible spec release can advance from `1.0.0` to `1.1.0` without changing the renderer schema major.
 
+## Project context
+
+Use at most one exact `project.context` clause when an account binds a public research or deliberation document:
+
+```yaml
+---
+schema: relocke.ui/1
+type: project-context
+title: The Light That Pays to Last
+repository: https://github.com/relocke/the-light-that-pays-to-last
+revision: 0123456789abcdef0123456789abcdef01234567
+path: context.rloc.md
+sha256: 0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef
+---
+Defines the public project context used by people and agents to examine,
+challenge, and refine the proposed durability incentive architecture.
+```
+
+Keep the repositories distinct:
+
+- `ui.contract.repository` identifies deployed-code provenance.
+- `project.context.repository` identifies the public deliberation repository.
+
+Require all of the following:
+
+- `schema: relocke.ui/1` and `type: project-context`;
+- a public HTTPS GitHub repository with exactly an owner and repository path;
+- a full 40-character immutable commit revision, never a branch or tag;
+- the exact canonical path `context.rloc.md`;
+- a 64-character lowercase SHA-256 digest of the file's exact UTF-8 bytes;
+- no more than 256 KiB of fetched content;
+- valid UTF-8 and `schema: relocke.context/1` frontmatter in the context file; and
+- sanitisation of the rendered Markdown as untrusted content.
+
+Fetch the file from the pinned revision and verify the digest before presenting
+it as authoritative or sending it to a model. Fail closed for missing or
+duplicate clauses, inaccessible repositories, deleted revisions, unsafe paths,
+size-limit violations, malformed context, or digest mismatches.
+
+A canonical `context.rloc.md` should distinguish objective, actors, lifecycle,
+ownership, incentives, assumptions, invariants, proposed contract surface,
+evidence, known attack vectors, unresolved questions, and accepted decisions.
+Its claims remain a research model, not executable behaviour.
+
+GitHub issues, comments, branches, labels, and merged changes are proposals.
+Even a merged `context.rloc.md` is non-authoritative until an account-authorised
+review updates only the pinned revision and digest in the on-chain ABI.
+Never let an agent, issue label, or GitHub merge sign or broadcast `setabi`.
+
+Metadata-only project ABIs are valid. They may contain no public actions,
+tables, or deployed WASM. Interfaces must identify them as research projects
+and must not infer executable actions from their project context.
+
 ## Action documentation
 
 Use the standard `ricardian_contract` property:
@@ -189,6 +243,7 @@ Before presenting or deploying:
 - validate SemVer values;
 - map action and table documentation to real ABI entries;
 - validate the exact icon/symbol association;
+- verify any `project.context` revision, canonical path, size, schema, and exact-byte digest;
 - preserve unrelated ABI content and unknown metadata;
 - sanitize Markdown and SVG as untrusted content;
 - compare source, ABI, WASM hash, permissions, and live state; and
@@ -200,4 +255,4 @@ After deployment, re-fetch the ABI and inspect:
 https://relocke.io/accounts/<chain-slug>/<account>/smart-contract
 ```
 
-Confirm the title, types, overview, actions, tables, icon, token association, versions, source context, external triggers, and side-effect descriptions match the deployed contract.
+Confirm the title, types, overview, actions, tables, icon, token association, versions, source context, optional verified project context, external triggers, and side-effect descriptions match the deployed contract.
