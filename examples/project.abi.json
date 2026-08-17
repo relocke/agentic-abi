@@ -1,0 +1,20 @@
+{
+  "version": "eosio::abi/1.2",
+  "types": [],
+  "structs": [],
+  "actions": [],
+  "tables": [],
+  "ricardian_clauses": [
+    {
+      "id": "ui.contract",
+      "body": "---\nschema: relocke.ui/1\nspec-version: 1.1.0\ncontract-version: 0.0.0\ntypes: research\ntitle: Example durability research project\n---\nA metadata-only research project with no executable contract behaviour."
+    },
+    {
+      "id": "project.context",
+      "body": "---\nschema: relocke.ui/1\ntype: project-context\ntitle: Example durability research project\nrepository: https://github.com/relocke/example-project\nrevision: 0123456789abcdef0123456789abcdef01234567\npath: context.rloc.md\nsha256: d1d004837c57b620449c46def6581870c164644d158103634425ab7508782fda\n---\nDefines the public context used to examine and refine this research project."
+    }
+  ],
+  "error_messages": [],
+  "abi_extensions": [],
+  "variants": []
+}
